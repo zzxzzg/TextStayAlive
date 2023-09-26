@@ -1,5 +1,6 @@
 package com.guardz.alive.domain.action;
 
+import com.guardz.alive.domain.action.system.SystemActionDispatcher;
 import com.guardz.alive.domain.action.turn.TurnActionDispatcher;
 
 /**
@@ -13,6 +14,9 @@ public class ActionParseUtil {
     public static Action parseAction(String payload) {
         if (payload.startsWith("turn:")){
             return TurnActionDispatcher.dispatch(payload.replaceFirst("turn:", ""));
+        }
+        if (payload.startsWith("sys:")){
+            return SystemActionDispatcher.dispatch(payload.replaceFirst("sys:", ""));
         }
         return null;
     }

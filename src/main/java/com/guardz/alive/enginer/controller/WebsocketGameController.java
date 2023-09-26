@@ -1,21 +1,24 @@
 package com.guardz.alive.enginer.controller;
 
-import com.guardz.alive.domain.action.turn.TurnAction;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.guardz.alive.domain.action.system.SystemAction;
+import com.guardz.alive.domain.action.turn.TurnAction;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class WebsocketGameController implements GameController{
+public class WebsocketGameController implements GameController {
     private WebSocketSession session;
 
-    private ArrayBlockingQueue<TurnAction> turnActionQueue = new ArrayBlockingQueue<>(5);
+    private final ArrayBlockingQueue<TurnAction> turnActionQueue = new ArrayBlockingQueue<>(5);
 
-    private AtomicBoolean isWaiting = new AtomicBoolean(false);
+    private final AtomicBoolean isWaitingTurnAction = new AtomicBoolean(false);
 
     public WebsocketGameController(WebSocketSession session) {
         this.session = session;
@@ -36,21 +39,21 @@ public class WebsocketGameController implements GameController{
      * 等待玩家输入
      */
     @Override
-    public TurnAction waitForTurnAction(){
-        isWaiting.set(true);
+    public TurnAction waitForTurnAction() {
+        isWaitingTurnAction.set(true);
         try {
             return turnActionQueue.take();
         } catch (InterruptedException e) {
             log.error("等待玩家输入失败", e);
             throw ControllerException.of("等待玩家输入失败");
         } finally {
-            isWaiting.set(false);
+            isWaitingTurnAction.set(false);
         }
     }
 
     @Override
     public void inputTurnAction(TurnAction turnAction) {
-        if (isWaiting.get() && turnActionQueue.isEmpty()){
+        if (isWaitingTurnAction.get() && turnActionQueue.isEmpty()) {
             turnActionQueue.add(turnAction);
         }
     }

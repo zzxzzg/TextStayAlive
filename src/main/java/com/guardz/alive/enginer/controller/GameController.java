@@ -1,5 +1,6 @@
 package com.guardz.alive.enginer.controller;
 
+import com.guardz.alive.domain.action.system.SystemAction;
 import com.guardz.alive.domain.action.turn.TurnAction;
 
 public interface GameController {

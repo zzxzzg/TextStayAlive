@@ -34,6 +34,7 @@ public class GameWebSocketHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         System.out.println("收到消息时触发的回调" + message.getPayload());
+        session.sendMessage(new TextMessage(Thread.currentThread().getName()));
         if (message instanceof TextMessage) {
             Game game = gameManager.getGame(session.getId());
             if (game != null) {

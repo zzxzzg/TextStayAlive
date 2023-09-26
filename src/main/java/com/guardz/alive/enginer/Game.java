@@ -2,17 +2,20 @@ package com.guardz.alive.enginer;
 
 import com.guardz.alive.domain.action.Action;
 import com.guardz.alive.domain.action.ActionParseUtil;
+import com.guardz.alive.domain.action.system.StartAction;
+import com.guardz.alive.domain.action.system.SystemAction;
 import com.guardz.alive.domain.action.turn.TurnAction;
 import com.guardz.alive.domain.character.Character;
 import com.guardz.alive.domain.env.Environment;
 import com.guardz.alive.enginer.controller.GameController;
 import lombok.Data;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * 游戏调度器
  */
-@Data
-public class Game {
+@Data public class Game {
 
     private GameMode gameMode;
 
@@ -20,12 +23,15 @@ public class Game {
 
     private GameController gameController;
 
+    private AtomicBoolean isGameStart = new AtomicBoolean(false);
+
     public Game(GameController gameController) {
         this.gameController = gameController;
     }
 
     private Character character;
-    public void init(){
+
+    public void init() {
         environment = new Environment(this);
         character = new Character(this);
         gameMode = new GameMode();
@@ -36,35 +42,60 @@ public class Game {
         character.init();
     }
 
-    public void start(){
-        Turn turn = Turn.nextTurn(this, character);
+    public void start() {
+        if (isGameStart.get()) {
+            return;
+        }
+        isGameStart.set(true);
+        // 启动线程，开始推进游戏执行
+        Thread thread = new Thread(this::invokeTurn);
+        thread.start();
     }
 
-    public void receivePayload(String payload){
+    public void receivePayload(String payload) {
         // 1. 解析payload
         Action action = ActionParseUtil.parseAction(payload);
-        if (action == null){
+        if (action == null) {
             gameController.printMessage("无效的命令");
             return;
         }
         // 2. 如果是TurnAction，则写入队列
         if (action instanceof TurnAction) {
-            gameController.inputTurnAction((TurnAction) action);
+            gameController.inputTurnAction((TurnAction)action);
+        }
+        // 2. 如果是SystemAction，则写入队列
+        if (action instanceof SystemAction) {
+            processSystemAction((SystemAction)action);
         }
     }
 
-    public TurnAction waitForTurnAction(){
+    public TurnAction waitForTurnAction() {
         TurnAction turnAction = gameController.waitForTurnAction();
-        if (isTurnActionValid(turnAction)){
+        if (isTurnActionValid(turnAction)) {
             return turnAction;
         }
         return waitForTurnAction();
     }
 
-    private boolean isTurnActionValid(TurnAction turnAction){
+    private void processSystemAction(SystemAction systemAction) {
+        if (systemAction instanceof StartAction) {
+            start();
+        }
+    }
+
+    private boolean isTurnActionValid(TurnAction turnAction) {
         // TODO 检验合法性
         return true;
     }
 
-
+    private void invokeTurn(){
+        while (true) {
+            Turn turn = Turn.nextTurn(this, character);
+            turn.preTurn();
+            turn.onTurn();
+            if (!turn.postTurn()) {
+                break;
+            }
+        }
+    }
 }

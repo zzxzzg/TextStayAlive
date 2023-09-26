@@ -47,10 +47,16 @@ public class Turn {
         // TODO 3. 根据新动项目，产生相关效果，影响玩家环境，玩家状态
     }
 
-    public void postTurn() {
+    /**
+     * 是否结束游戏
+     * @return false 游戏结束， true 游戏继续
+     */
+    public boolean postTurn() {
         // TODO 1. 结算玩家状态
 
         // TODO 2. 环境设置下个回合
         game.getEnvironment().nextTurn();
+
+        return true;
     }
 }
