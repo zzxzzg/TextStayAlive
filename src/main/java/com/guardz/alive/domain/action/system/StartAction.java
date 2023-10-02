@@ -6,6 +6,6 @@ package com.guardz.alive.domain.action.system;
 public class StartAction implements SystemAction {
     @Override
     public String getCommand() {
-        return "system";
+        return "start";
     }
 }

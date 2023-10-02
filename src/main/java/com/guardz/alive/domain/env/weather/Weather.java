@@ -81,17 +81,8 @@ public class Weather {
     }
 
     // Method to display weather information
-    public void displayWeatherInfo() {
-        System.out.println("Weather Type: " + weatherType);
-        System.out.println("Temperature: " + temperature + "°C");
-        System.out.println("Humidity: " + humidity + "%");
-        System.out.println("Wind Speed: " + windSpeed + " m/s");
-        System.out.println("Precipitation: " + precipitation + " mm");
-    }
-
-    public static void main(String[] args) {
-        // Create a new Weather object and display its information
-        Weather currentWeather = new Weather(WeatherType.SUNNY, 25, 40, 5, 0);
-        currentWeather.displayWeatherInfo();
+    public String toString() {
+        String str = weatherType.getDesc() + " " + temperature + "°C 湿度" + humidity + "% 风力" + windSpeed + "m/s 降水量" + precipitation + "mm";
+        return str;
     }
 }

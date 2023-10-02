@@ -76,6 +76,18 @@ public class GameTime implements Cloneable {
         }
     }
 
+    public String toString() {
+        String str;
+        if (turn == 1){
+            str = "早上";
+        } else if (turn == 2) {
+            str = "下午";
+        } else {
+            str = "晚上";
+        }
+        return year + "年 " + season.getName() + " " + day + "日 " + str;
+    }
+
     @Override
     public GameTime clone() {
         try {

@@ -27,6 +27,9 @@ public class Environment {
     public void init() {
         // 1. 初始化时间
         this.gameTime = new GameTime();
+        game.getGameController().printMessage("---时间初始化完成");
+
+        game.getGameController().printMessage("--环境初始化完成");
     }
 
     /**
@@ -48,5 +51,6 @@ public class Environment {
             weatherEvent.changeEnv();
         }
 
+        game.getGameController().printMessage("---当前天气:" + weather.toString());
     }
 }

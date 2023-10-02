@@ -1,5 +1,7 @@
 package com.guardz.alive.enginer;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import com.guardz.alive.domain.action.Action;
 import com.guardz.alive.domain.action.ActionParseUtil;
 import com.guardz.alive.domain.action.system.StartAction;
@@ -8,14 +10,14 @@ import com.guardz.alive.domain.action.turn.TurnAction;
 import com.guardz.alive.domain.character.Character;
 import com.guardz.alive.domain.env.Environment;
 import com.guardz.alive.enginer.controller.GameController;
-import lombok.Data;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import lombok.Data;
 
 /**
  * 游戏调度器
  */
-@Data public class Game {
+@Data
+public class Game {
 
     private GameMode gameMode;
 
@@ -40,6 +42,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
         environment.init();
         // 初始化角色
         character.init();
+
+        gameController.printMessage("-游戏初始化完成");
     }
 
     public void start() {
@@ -88,7 +92,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
         return true;
     }
 
-    private void invokeTurn(){
+    private void invokeTurn() {
+        gameController.printMessage("-游戏开始");
         while (true) {
             Turn turn = Turn.nextTurn(this, character);
             turn.preTurn();

@@ -12,6 +12,7 @@ public class ActionParseUtil {
      * turn:{action} 代表回合行动
      */
     public static Action parseAction(String payload) {
+        payload = payload.trim();
         if (payload.startsWith("turn:")){
             return TurnActionDispatcher.dispatch(payload.replaceFirst("turn:", ""));
         }

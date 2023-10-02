@@ -26,10 +26,12 @@ public class DefaultWeatherRandom implements WeatherRandom {
      */
     @Override
     public Weather random(GameTime gameTime, Weather lastWeather) {
-        //TODO 1. 随机当前天气
         Weather weather = new Weather();
         weather.setGameTime(gameTime);
         weather.setLastWeather(lastWeather);
+        //TODO 1. 随机当前天气
+
+
 
         // 2. 环境事件轮询，生成随机天气事件
         weather.setWeatherEvents(WeatherEventDispatcher.dispatch(weather));

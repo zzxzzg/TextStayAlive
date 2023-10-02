@@ -33,8 +33,15 @@ public class Character {
         bag = new Bag(this);
 
         characterStatus.init();
+        game.getGameController().printMessage("---角色状态初始化完成");
+
         characterEnv.init();
+        game.getGameController().printMessage("---角色环境初始化完成");
+
         bag.init();
+        game.getGameController().printMessage("---角色背包初始化完成");
+
+        game.getGameController().printMessage("--角色初始化完成");
     }
 
     public void preTurn() {
