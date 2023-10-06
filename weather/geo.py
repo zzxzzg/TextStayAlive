@@ -2,8 +2,8 @@ import csv
 import requests
 
 # 读取文件
-input_file = 'stations.csv'  # 请替换为实际文件路径
-output_file = 'output_file.csv'  # 输出文件
+input_file = 'US/stations_test.csv'  # 请替换为实际文件路径
+output_file = 'US/output_file_test.csv'  # 输出文件
 
 # 高德地图API Key
 api_key = 'ef1273692437928435074aaeb1caa9d5'  # 请替换为实际的API Key
@@ -36,6 +36,7 @@ with open(input_file, mode='r') as infile, open(output_file, mode='w', newline='
             try:
                 data = response.json()
                 address_component = data.get('regeocode', {}).get('addressComponent', {})
+                print(address_component)
                 
                 # 拼接地址
                 country = address_component.get('country', '')

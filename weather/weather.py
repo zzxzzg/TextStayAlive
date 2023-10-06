@@ -5,7 +5,7 @@ import shutil
 from ftplib import FTP
 
 def read_station_ids(file_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r',encoding='utf-8') as f:
         reader = csv.reader(f)
         next(reader)  # 跳过表头
         station_ids = [row[0] for row in reader]
@@ -48,18 +48,22 @@ def download_isd_lite_data(ftp, station_id, year, output_dir, decompressed_file_
                 print(f'Downloading {remote_path}...')
                 ftp.retrbinary('RETR ' + file_name, local_file.write)
                 print(f'{remote_path} Downloaded successfully.')
-                # 解压缩文件 到 decompressed_file_path/文件名
 
-                with gzip.open(local_path, 'rb') as gz_file:
-                    with open(os.path.join(decompressed_file_path, file_name.rstrip('.gz')), 'wb') as decompressed_file:
-                        shutil.copyfileobj(gz_file, decompressed_file)
-                print(f'{local_path} has been decompressed to {decompressed_file_path}')
+            # 解压缩文件 到 decompressed_file_path/文件名
+            decompress_gzip(local_path, os.path.join(decompressed_file_path, file_name.rstrip('.gz')))
+            
         else:
             # 文件不存在，创建一个空文件
             with open(empty_local_path, 'w') as local_file:
                 print(f'{remote_path} does not exist. Skipping...')
     except Exception as e:  # 捕获权限错误，例如文件不存在
             print(f'Error accessing {remote_path}: {e}. Skipping...')
+
+def decompress_gzip(input_path, output_path):
+    with gzip.open(input_path, 'rb') as f_in:
+        with open(output_path, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+    print(f'{input_path} has been decompressed to {output_path}')
 
 def download_china_isd_lite_data(stations_file, start_year, end_year, output_dir):
     ftp = FTP('ftp.ncdc.noaa.gov')
@@ -79,10 +83,10 @@ def download_china_isd_lite_data(stations_file, start_year, end_year, output_dir
     ftp.quit()
 
 if __name__ == '__main__':
-    stations_file = 'output_file.csv'   ###国内站点数据，请查看附件。
+    stations_file = 'US/output_file.csv'   ###国内站点数据，请查看附件。
     start_year = 1948                        ###时间范围
     end_year = 2022
-    output_dir = 'Documents'   ####我的保存文件路径，需要修改
+    output_dir = 'US/Documents'   ####我的保存文件路径，需要修改
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
