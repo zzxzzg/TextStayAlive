@@ -1,9 +1,12 @@
 package com.guardz.alive.domain.env.time;
 
+import lombok.Data;
+
 /**
  * 游戏时间
  * 设定游戏时间 一年 4季， 每个季度 30天 ， 每天 3 个回合
  */
+@Data
 public class GameTime implements Cloneable {
     private Season season;
 
@@ -49,6 +52,9 @@ public class GameTime implements Cloneable {
         return (year - gameTime.year) * 30 * 4 + (season.getCode() - gameTime.season.getCode()) * 30 + (this.day - gameTime.day);
     }
 
+    public int weatherDay() {
+        return ((season.getCode() - Season.SPRING.getCode()) * 30 + day + 14) % (Season.WINTER.getCode() * 30);
+    }
 
     private void nextDay() {
         this.day++;
@@ -78,7 +84,7 @@ public class GameTime implements Cloneable {
 
     public String toString() {
         String str;
-        if (turn == 1){
+        if (turn == 1) {
             str = "早上";
         } else if (turn == 2) {
             str = "下午";

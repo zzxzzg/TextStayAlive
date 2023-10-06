@@ -23,6 +23,12 @@ public class Weather {
      * 天气类型
      */
     private WeatherType weatherType;
+
+    /**
+     * 精确气温，主要用于计算下一个气温
+     */
+    private Double realTemperature;
+
     /**
      * 温度
      */
