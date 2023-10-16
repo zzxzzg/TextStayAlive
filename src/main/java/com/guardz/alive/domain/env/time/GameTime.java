@@ -52,6 +52,10 @@ public class GameTime implements Cloneable {
         return (year - gameTime.year) * 30 * 4 + (season.getCode() - gameTime.season.getCode()) * 30 + (this.day - gameTime.day);
     }
 
+    /**
+     * 天气拐点， 冬季 15日为 0 拐点日
+     * @return
+     */
     public int weatherDay() {
         return ((season.getCode() - Season.SPRING.getCode()) * 30 + day + 14) % (Season.WINTER.getCode() * 30);
     }
