@@ -1,5 +1,6 @@
 package com.guardz.alive.domain.character;
 
+import com.guardz.alive.domain.character.buff.CharacterBuff;
 import com.guardz.alive.enginer.Game;
 import lombok.Data;
 import lombok.ToString;
@@ -51,5 +52,9 @@ public class Character {
         characterEnv.preTurn();
         // 3. 玩家背包
         bag.preTurn();
+    }
+
+    public void addBuff(CharacterBuff characterBuff){
+        characterBuff.inject(this);
     }
 }

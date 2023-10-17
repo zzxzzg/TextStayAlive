@@ -37,7 +37,7 @@ public class Turn {
         // 3. 生成随机事件
         List<GameEvent> gameEventList = game.getGameMode()
             .getGameEventRandom()
-            .random();
+            .random(game);
 
         // 4. 随机事件影响玩家
         if (!CollectionUtils.isEmpty(gameEventList)) {

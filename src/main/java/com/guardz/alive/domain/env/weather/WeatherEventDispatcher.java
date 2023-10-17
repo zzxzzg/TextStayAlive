@@ -14,7 +14,7 @@ public class WeatherEventDispatcher {
 
     static {
         // 所有天气类型事件，存在顺序性
-        WEATHER_EVENTS.add(StormEvent.getEarthQuakeEvent());
+        WEATHER_EVENTS.add(StormEvent.getStormEvent());
     }
 
     public static List<WeatherEvent> dispatch(Weather weather) {

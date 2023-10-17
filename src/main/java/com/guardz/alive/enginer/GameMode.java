@@ -13,6 +13,4 @@ import lombok.Data;
 public class GameMode {
     public WeatherRandom weatherRandom = DefaultWeatherRandom.getWeatherRandom();
     public GameEventRandom gameEventRandom = DefaultGameEventRandom.getGameEventRandom();
-
-
 }

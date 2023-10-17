@@ -8,7 +8,7 @@ import java.util.List;
 public class StormEvent implements WeatherEvent {
     private static StormEvent stormEvent;
 
-    public static StormEvent getEarthQuakeEvent() {
+    public static StormEvent getStormEvent() {
         if (stormEvent == null) {
             stormEvent = new StormEvent();
         }
