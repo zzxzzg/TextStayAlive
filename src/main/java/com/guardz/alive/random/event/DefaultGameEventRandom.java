@@ -1,9 +1,7 @@
 package com.guardz.alive.random.event;
 
-import com.guardz.alive.domain.event.GameEvent;
-import com.guardz.alive.domain.event.GameEventDispatcher;
+import com.guardz.alive.domain.event.game.GameEvent;
 import com.guardz.alive.enginer.Game;
-import com.guardz.alive.random.env.weather.DefaultWeatherRandom;
 
 import java.util.List;
 

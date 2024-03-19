@@ -3,7 +3,6 @@ package com.guardz.alive.random.env.weather;
 import com.guardz.alive.domain.env.time.GameTime;
 import com.guardz.alive.domain.env.time.Season;
 import com.guardz.alive.domain.env.weather.Weather;
-import com.guardz.alive.domain.env.weather.WeatherEventDispatcher;
 import com.guardz.alive.domain.env.weather.WeatherType;
 
 import java.util.List;
@@ -198,9 +197,6 @@ public class DefaultWeatherRandom implements WeatherRandom {
         randomPrecipitation(gameTime, weather);
         //1.5. 生成天气类型
         generateWeatherType(gameTime, weather);
-
-        // 2. 环境事件轮询，生成随机天气事件
-        weather.setWeatherEvents(WeatherEventDispatcher.dispatch(weather));
 
         return weather;
     }

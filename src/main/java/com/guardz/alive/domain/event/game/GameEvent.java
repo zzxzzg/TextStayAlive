@@ -1,12 +1,13 @@
-package com.guardz.alive.domain.event;
+package com.guardz.alive.domain.event.game;
 
 import com.guardz.alive.domain.character.Character;
+import com.guardz.alive.domain.event.Event;
 import com.guardz.alive.enginer.Game;
 
 /**
  * 游戏中的随机事件
  */
-public interface GameEvent {
+public interface GameEvent extends Event {
     /**
      * 随机事件影响玩家
      */

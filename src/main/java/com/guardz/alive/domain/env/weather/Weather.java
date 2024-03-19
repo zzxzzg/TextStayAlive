@@ -1,7 +1,7 @@
 package com.guardz.alive.domain.env.weather;
 
 import com.guardz.alive.domain.env.time.GameTime;
-import com.guardz.alive.domain.env.weather.event.WeatherEvent;
+import com.guardz.alive.domain.event.weather.WeatherEvent;
 import lombok.Data;
 
 import java.util.ArrayList;

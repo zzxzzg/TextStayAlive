@@ -8,7 +8,6 @@ import com.guardz.alive.domain.action.system.StartAction;
 import com.guardz.alive.domain.action.system.SystemAction;
 import com.guardz.alive.domain.action.turn.TurnAction;
 import com.guardz.alive.domain.character.Character;
-import com.guardz.alive.domain.env.Environment;
 import com.guardz.alive.enginer.controller.GameController;
 
 import lombok.Data;
@@ -95,7 +94,7 @@ public class Game {
     private void invokeTurn() {
         gameController.printMessage("-游戏开始");
         while (true) {
-            Turn turn = Turn.nextTurn(this, character);
+            Turn turn = Turn.nextTurn(this);
             turn.preTurn();
             turn.onTurn();
             if (!turn.postTurn()) {

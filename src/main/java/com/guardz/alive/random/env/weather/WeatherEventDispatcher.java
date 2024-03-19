@@ -1,10 +1,12 @@
-package com.guardz.alive.domain.env.weather;
+package com.guardz.alive.random.env.weather;
 
-import com.guardz.alive.domain.env.weather.event.StormEvent;
-import com.guardz.alive.domain.env.weather.event.WeatherEvent;
+import com.guardz.alive.domain.env.weather.Weather;
+import com.guardz.alive.domain.event.weather.StormEvent;
+import com.guardz.alive.domain.event.weather.WeatherEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * 环境随机事件触发器
@@ -20,10 +22,15 @@ public class WeatherEventDispatcher {
     public static List<WeatherEvent> dispatch(Weather weather) {
         List<WeatherEvent> result = new ArrayList<>();
         for (WeatherEvent weatherEvent : WEATHER_EVENTS) {
-            if (weatherEvent.calculate(weather, result)) {
+            if (weatherEvent.calculate(weather)) {
                 result.add(weatherEvent);
             }
         }
-        return result;
+        // 事件互斥
+        return weatherEventsFilter(result);
+    }
+
+    public static List<WeatherEvent> weatherEventsFilter(List<WeatherEvent> events) {
+        return events.stream().findFirst().map(List::of).orElse(new ArrayList<>());
     }
 }

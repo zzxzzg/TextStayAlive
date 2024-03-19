@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.util.CollectionUtils;
 
 import com.guardz.alive.domain.action.turn.TurnAction;
-import com.guardz.alive.domain.character.Character;
-import com.guardz.alive.domain.event.GameEvent;
+import com.guardz.alive.domain.event.game.GameEvent;
 
 /**
  * 回合
@@ -15,14 +14,11 @@ public class Turn {
 
     private Game game;
 
-    public static Turn nextTurn(Game game, Character character) {
+    public static Turn nextTurn(Game game) {
         Turn turn = new Turn();
         turn.game = game;
-        turn.character = character;
         return turn;
     }
-
-    private Character character;
 
     public void preTurn() {
         game.getGameController().printMessage("--回合开始，当前游戏时间:" + game.getEnvironment().getGameTime().toString());

@@ -1,9 +1,11 @@
 package com.guardz.alive.domain.character;
 
-import com.guardz.alive.domain.character.buff.CharacterBuff;
+import com.guardz.alive.domain.buff.character.CharacterBuff;
 import com.guardz.alive.enginer.Game;
 import lombok.Data;
 import lombok.ToString;
+
+import java.util.List;
 
 @Data
 @ToString
@@ -23,6 +25,8 @@ public class Character {
      * 玩家属性
      */
     private CharacterStatus characterStatus;
+
+    private List<CharacterBuff> characterBuffs;
 
     public Character(Game game) {
         this.game = game;
@@ -54,7 +58,7 @@ public class Character {
         bag.preTurn();
     }
 
-    public void addBuff(CharacterBuff characterBuff){
-        characterBuff.inject(this);
+    public void addBuffs(List<CharacterBuff> characterBuffs){
+
     }
 }

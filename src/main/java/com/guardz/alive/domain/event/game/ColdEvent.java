@@ -1,4 +1,4 @@
-package com.guardz.alive.domain.event;
+package com.guardz.alive.domain.event.game;
 
 import com.guardz.alive.domain.character.Character;
 import com.guardz.alive.domain.env.weather.Weather;

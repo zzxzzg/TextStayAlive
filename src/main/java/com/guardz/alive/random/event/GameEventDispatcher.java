@@ -1,10 +1,8 @@
-package com.guardz.alive.domain.event;
+package com.guardz.alive.random.event;
 
-import com.guardz.alive.domain.env.weather.Weather;
-import com.guardz.alive.domain.env.weather.event.StormEvent;
-import com.guardz.alive.domain.env.weather.event.WeatherEvent;
+import com.guardz.alive.domain.event.game.ColdEvent;
+import com.guardz.alive.domain.event.game.GameEvent;
 import com.guardz.alive.enginer.Game;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

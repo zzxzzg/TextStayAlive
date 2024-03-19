@@ -1,4 +1,4 @@
-package com.guardz.alive.domain.env.weather.event;
+package com.guardz.alive.domain.event.weather;
 
 
 import com.guardz.alive.domain.env.weather.Weather;
@@ -16,7 +16,7 @@ public class StormEvent implements WeatherEvent {
     }
 
     @Override
-    public boolean calculate(Weather weather, List<WeatherEvent> currentEvent) {
+    public boolean calculate(Weather weather) {
         return false;
     }
 
