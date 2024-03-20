@@ -1,11 +1,18 @@
 package com.guardz.alive.enginer;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.CollectionUtils;
+import com.guardz.alive.domain.event.character.CharacterEvent;
+import com.guardz.alive.domain.event.env.EnvEvent;
+import org.apache.commons.collections4.CollectionUtils;
 
 import com.guardz.alive.domain.action.turn.TurnAction;
-import com.guardz.alive.domain.event.game.GameEvent;
+import com.guardz.alive.domain.buff.Buff;
+import com.guardz.alive.domain.buff.character.CharacterBuff;
+import com.guardz.alive.domain.buff.env.EnvBuff;
+import com.guardz.alive.domain.event.Event;
+import com.guardz.alive.random.env.buff.DefaultEnvBuffGenerator;
 
 /**
  * 回合
@@ -26,19 +33,39 @@ public class Turn {
         game.getEnvironment()
             .preTurn();
 
-        // 2. 玩家相关随机处理
-        game.getCharacter()
-            .preTurn();
-
-        // 3. 生成随机事件
-        List<GameEvent> gameEventList = game.getGameMode()
-            .getGameEventRandom()
-            .random(game);
-
-        // 4. 随机事件影响玩家
-        if (!CollectionUtils.isEmpty(gameEventList)) {
-            gameEventList.forEach(gameEvent -> gameEvent.onEvent(game.getCharacter()));
+        // 2. 产生环境事件
+        List<EnvEvent> envEvents = game.getGameMode().getEventGenerator().generateEnvEvents(game);
+        // 3 产生环境buff
+        List<EnvBuff> envBuffs = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(envEvents)) {
+            envEvents.forEach(event -> {
+                List<EnvBuff> list = event.onEvent(game);
+                if (CollectionUtils.isNotEmpty(list)) {
+                    envBuffs.addAll(list);
+                }
+            });
         }
+        // 4. 将buff添加到环境中
+        game.getEnvironment().addBuff(envBuffs);
+
+        // 5. TODO 环境Buff生效
+
+        // 6. 产生角色事件
+        List<CharacterEvent> characterEvents = game.getGameMode().getEventGenerator().generateCharacterEvents(game);
+        // 7. 产生角色buff
+        List<CharacterBuff> characterBuffs = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(characterEvents)) {
+            characterEvents.forEach(event -> {
+                List<CharacterBuff> list = event.onEvent(game);
+                if (CollectionUtils.isNotEmpty(list)) {
+                    characterBuffs.addAll(list);
+                }
+            });
+        }
+        // 8. 将buff添加到角色中
+        game.getCharacter().addBuff(characterBuffs);
+
+        // 9. TODO 角色Buff生效
     }
 
     public void onTurn() {

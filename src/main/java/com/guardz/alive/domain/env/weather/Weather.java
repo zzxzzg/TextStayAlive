@@ -1,11 +1,7 @@
 package com.guardz.alive.domain.env.weather;
 
 import com.guardz.alive.domain.env.time.GameTime;
-import com.guardz.alive.domain.event.weather.WeatherEvent;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class Weather {
@@ -79,11 +75,6 @@ public class Weather {
      * 6. 特大暴雨：这些术语通常用于描述极端降雨事件，这些事件可能导致严重洪水和财产损失。这些术语的具体定义可能因国家和气象组织而异。
      */
     private int precipitation;
-
-    /**
-     * 天气事件
-     */
-    private List<WeatherEvent> weatherEvents = new ArrayList<>();
 
     public Weather() {
     }

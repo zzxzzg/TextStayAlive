@@ -1,13 +1,16 @@
-package com.guardz.alive.domain.event.game;
+package com.guardz.alive.domain.event.character;
 
+import com.guardz.alive.domain.buff.Buff;
 import com.guardz.alive.domain.character.Character;
 import com.guardz.alive.domain.env.weather.Weather;
 import com.guardz.alive.enginer.Game;
 
+import java.util.List;
+
 /**
  * author: wyx date: 2023/10/17 description: 感冒
  */
-public class ColdEvent implements GameEvent {
+public class ColdEvent implements CharacterEvent {
     /**
      * 温差较大，更容易感冒
      */
@@ -33,12 +36,17 @@ public class ColdEvent implements GameEvent {
     }
 
     @Override
-    public void onEvent(Character character) {
-
+    public String getEventName() {
+        return "感冒";
     }
 
     @Override
-    public boolean random(Game game) {
+    public String getEventDesc() {
+        return null;
+    }
+
+    @Override
+    public Boolean calculate(Game game) {
         Weather weather = game.getEnvironment()
             .getWeather();
         if (weather.getLastWeather() == null) {
@@ -54,7 +62,7 @@ public class ColdEvent implements GameEvent {
     }
 
     @Override
-    public String getEventName() {
-        return "感冒";
+    public List<Buff> onEvent(Game game) {
+        return null;
     }
 }

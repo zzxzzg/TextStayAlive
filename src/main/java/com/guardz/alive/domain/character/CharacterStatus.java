@@ -1,6 +1,7 @@
 package com.guardz.alive.domain.character;
 
-import com.guardz.alive.domain.character.buff.CharacterBuff;
+
+import com.guardz.alive.domain.buff.character.CharacterBuff;
 
 import java.util.ArrayList;
 import java.util.List;

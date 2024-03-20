@@ -2,8 +2,8 @@ package com.guardz.alive.enginer;
 
 import com.guardz.alive.random.env.weather.WeatherRandom;
 import com.guardz.alive.random.env.weather.DefaultWeatherRandom;
-import com.guardz.alive.random.event.DefaultGameEventRandom;
-import com.guardz.alive.random.event.GameEventRandom;
+import com.guardz.alive.random.event.DefaultEventGenerator;
+import com.guardz.alive.random.event.EventGenerator;
 import lombok.Data;
 
 /**
@@ -12,5 +12,5 @@ import lombok.Data;
 @Data
 public class GameMode {
     public WeatherRandom weatherRandom = DefaultWeatherRandom.getWeatherRandom();
-    public GameEventRandom gameEventRandom = DefaultGameEventRandom.getGameEventRandom();
+    public EventGenerator eventGenerator = DefaultEventGenerator.getGameEventRandom();
 }

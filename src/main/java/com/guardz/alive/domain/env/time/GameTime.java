@@ -106,4 +106,54 @@ public class GameTime implements Cloneable {
             throw new AssertionError();
         }
     }
+
+    public boolean isBefore(GameTime currentTime) {
+        if (this.getYear() < currentTime.getYear()) {
+            return true;
+        }
+        if (this.getYear() > currentTime.getYear()){
+            return false;
+        }
+        if (this.getSeason().getCode() < currentTime.getSeason().getCode()) {
+            return true;
+        }
+        if (this.getSeason().getCode() > currentTime.getSeason().getCode()) {
+            return false;
+        }
+        if (this.getDay() < currentTime.getDay()) {
+            return true;
+        }
+        if (this.getDay() > currentTime.getDay()) {
+            return false;
+        }
+        return this.getTurn() < currentTime.getTurn();
+    }
+    public boolean isAfter(GameTime currentTime) {
+        if (this.getYear() < currentTime.getYear()) {
+            return false;
+        }
+        if (this.getYear() > currentTime.getYear()){
+            return true;
+        }
+        if (this.getSeason().getCode() < currentTime.getSeason().getCode()) {
+            return false;
+        }
+        if (this.getSeason().getCode() > currentTime.getSeason().getCode()) {
+            return true;
+        }
+        if (this.getDay() < currentTime.getDay()) {
+            return false;
+        }
+        if (this.getDay() > currentTime.getDay()) {
+            return true;
+        }
+        return currentTime.getTurn() > this.getTurn();
+    }
+    
+    public boolean isEqual(GameTime currentTime) {
+        return this.getYear() == currentTime.getYear() && this.getSeason()
+            .getCode() == currentTime.getSeason()
+                .getCode()
+            && this.getDay() == currentTime.getDay() && this.getTurn() == currentTime.getTurn();
+    }
 }

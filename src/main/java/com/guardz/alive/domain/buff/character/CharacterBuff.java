@@ -1,9 +1,7 @@
 package com.guardz.alive.domain.buff.character;
 
 import com.guardz.alive.domain.buff.Buff;
-import com.guardz.alive.domain.event.buff.BuffEvent;
-
-import java.util.List;
+import com.guardz.alive.domain.character.Character;
 
 /**
  * author: wyx
@@ -11,12 +9,10 @@ import java.util.List;
  * description: 角色状态
  */
 public interface CharacterBuff extends Buff {
-    String getBuffName();
-
-    String getBuffDesc();
 
     /**
-     * 关联的角色buff事件
+     * buff生效
+     * @param character 角色
      */
-    List<BuffEvent> getBuffEvents();
+    void inject(Character character);
 }

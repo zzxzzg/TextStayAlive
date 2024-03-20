@@ -58,7 +58,11 @@ public class Character {
         bag.preTurn();
     }
 
-    public void addBuffs(List<CharacterBuff> characterBuffs){
+    public void addBuff(CharacterBuff buff) {
+        characterBuffs.add(buff);
+    }
 
+    public void addBuff(List<CharacterBuff> buffs) {
+        characterBuffs.addAll(buffs);
     }
 }
