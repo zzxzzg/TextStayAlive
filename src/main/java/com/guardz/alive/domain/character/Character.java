@@ -1,10 +1,13 @@
 package com.guardz.alive.domain.character;
 
 import com.guardz.alive.domain.buff.character.CharacterBuff;
+import com.guardz.alive.domain.event.character.CharacterEvent;
 import com.guardz.alive.enginer.Game;
 import lombok.Data;
 import lombok.ToString;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -50,12 +53,30 @@ public class Character {
     }
 
     public void preTurn() {
-        // 1. 玩家状态处理
-        characterStatus.preTurn();
-        // 2. 玩家环境处理
-        characterEnv.preTurn();
-        // 3. 玩家背包
-        bag.preTurn();
+        // 6. 产生角色事件
+        List<CharacterEvent> characterEvents = game.getGameMode().getEventGenerator().generateCharacterEvents(game);
+        // 7. 产生角色buff
+        List<CharacterBuff> characterBuffs = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(characterEvents)) {
+            characterEvents.forEach(event -> {
+                List<CharacterBuff> list = event.onEvent(game);
+                if (CollectionUtils.isNotEmpty(list)) {
+                    characterBuffs.addAll(list);
+                }
+            });
+        }
+        // 8. 将buff添加到角色中
+        game.getCharacter().addBuff(characterBuffs);
+
+        // 9. TODO 角色Buff生效
+
+
+//        // 1. 玩家状态处理
+//        characterStatus.preTurn();
+//        // 2. 玩家环境处理
+//        characterEnv.preTurn();
+//        // 3. 玩家背包
+//        bag.preTurn();
     }
 
     public void addBuff(CharacterBuff buff) {

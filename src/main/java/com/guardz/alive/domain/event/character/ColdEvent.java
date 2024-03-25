@@ -1,6 +1,7 @@
 package com.guardz.alive.domain.event.character;
 
 import com.guardz.alive.domain.buff.Buff;
+import com.guardz.alive.domain.buff.character.CharacterBuff;
 import com.guardz.alive.domain.character.Character;
 import com.guardz.alive.domain.env.weather.Weather;
 import com.guardz.alive.enginer.Game;
@@ -62,7 +63,7 @@ public class ColdEvent implements CharacterEvent {
     }
 
     @Override
-    public List<Buff> onEvent(Game game) {
+    public List<CharacterBuff> onEvent(Game game) {
         return null;
     }
 }

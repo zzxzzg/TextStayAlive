@@ -3,8 +3,10 @@ package com.guardz.alive.enginer;
 import com.guardz.alive.domain.buff.env.EnvBuff;
 import com.guardz.alive.domain.env.time.GameTime;
 import com.guardz.alive.domain.env.weather.Weather;
+import com.guardz.alive.domain.event.env.EnvEvent;
 import lombok.Data;
 import lombok.ToString;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,22 @@ public class Environment {
     public void preTurn() {
         // 1. 随机当前天气
         weather = game.getGameMode().getWeatherRandom().random(gameTime, weather);
+        // 2. 产生环境事件
+        List<EnvEvent> envEvents = game.getGameMode().getEventGenerator().generateEnvEvents(game);
+        // 3 产生环境buff
+        List<EnvBuff> envBuffs = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(envEvents)) {
+            envEvents.forEach(event -> {
+                List<EnvBuff> list = event.onEvent(game);
+                if (CollectionUtils.isNotEmpty(list)) {
+                    envBuffs.addAll(list);
+                }
+            });
+        }
+        // 4. 将buff添加到环境中
+        game.getEnvironment().addBuff(envBuffs);
+
+        // 5. TODO 环境Buff生效
     }
 
     public void addBuff(EnvBuff buff) {

@@ -1,6 +1,6 @@
 package com.guardz.alive.domain.event.env;
 
-import com.guardz.alive.domain.buff.Buff;
+import com.guardz.alive.domain.buff.env.EnvBuff;
 import com.guardz.alive.enginer.Game;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class StormEvent implements EnvEvent {
     }
 
     @Override
-    public List<Buff> onEvent(Game game) {
+    public List<EnvBuff> onEvent(Game game) {
         return null;
     }
 }
