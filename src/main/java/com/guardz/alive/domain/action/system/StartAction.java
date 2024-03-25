@@ -5,7 +5,27 @@ package com.guardz.alive.domain.action.system;
  */
 public class StartAction implements SystemAction {
     @Override
-    public String getCommand() {
+    public String getCommandPayload() {
         return "start";
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return false;
+    }
+
+    @Override
+    public String getActionName() {
+        return null;
+    }
+
+    @Override
+    public String getActionDesc() {
+        return null;
+    }
+
+    @Override
+    public void doAction() {
+
     }
 }

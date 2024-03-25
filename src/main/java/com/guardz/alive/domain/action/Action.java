@@ -5,6 +5,10 @@ package com.guardz.alive.domain.action;
  */
 public interface Action {
     /**
+     * 操作码
+     */
+    String getCommandPayload();
+    /**
      * 是否可以执行该操作
      */
     boolean isAvailable();
