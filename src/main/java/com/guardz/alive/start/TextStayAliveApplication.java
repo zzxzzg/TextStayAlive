@@ -1,8 +1,7 @@
 package com.guardz.alive.start;
 
-import com.guardz.alive.external.hook.AliveUserHook;
-import com.guardz.alive.logic.user.UserLogicService;
-import com.guardz.alive.start.logic.CommonLogicServer;
+import com.guardz.alive.iogame.external.hook.AliveUserHook;
+import com.guardz.alive.iogame.logic.user.UserLogicService;
 import com.iohao.game.action.skeleton.core.IoGameGlobalSetting;
 import com.iohao.game.action.skeleton.core.codec.JsonDataCodec;
 import com.iohao.game.external.core.ExternalServer;
