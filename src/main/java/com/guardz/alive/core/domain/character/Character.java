@@ -29,7 +29,7 @@ public class Character {
      */
     private CharacterStatus characterStatus;
 
-    private List<CharacterBuff> characterBuffs;
+    private List<CharacterBuff> characterBuffs = new ArrayList<>();
 
     public Character(Game game) {
         this.game = game;

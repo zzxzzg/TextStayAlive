@@ -2,6 +2,7 @@ package com.guardz.alive.iogame.logic.process.controller;
 
 import com.google.common.collect.Lists;
 import com.guardz.alive.iogame.logic.process.cmd.GameProcessCmd;
+import com.guardz.alive.iogame.logic.process.domain.GameProcessManager;
 import com.guardz.alive.iogame.logic.process.executor.ProcessStartExecutor;
 import com.iohao.game.action.skeleton.annotation.ActionController;
 import com.iohao.game.action.skeleton.annotation.ActionMethod;
@@ -22,6 +23,9 @@ public class GameProcessActionController {
     @Resource
     private ProcessStartExecutor processStartExecutor;
 
+    @Resource
+    private GameProcessManager gameProcessManager;
+
     @ActionMethod(GameProcessCmd.start)
     public void start(FlowContext flowContext) {
         long userId = flowContext.getUserId();
@@ -34,6 +38,8 @@ public class GameProcessActionController {
                 .setOperation(EndPointOperationEnum.COVER_BINDING);
         ProcessorContext processorContext = BrokerClientHelper.getProcessorContext();
         processorContext.invokeOneway(endPointLogicServerMessage);
+
+        gameProcessManager.start(userId);
     }
 
     @ActionMethod(GameProcessCmd.end)

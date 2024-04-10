@@ -1,6 +1,7 @@
 package com.guardz.alive.start;
 
 import com.guardz.alive.iogame.external.hook.AliveUserHook;
+import com.guardz.alive.iogame.logic.process.ProcessLogicService;
 import com.guardz.alive.iogame.logic.user.UserLogicService;
 import com.iohao.game.action.skeleton.core.IoGameGlobalSetting;
 import com.iohao.game.action.skeleton.core.codec.JsonDataCodec;
@@ -28,6 +29,7 @@ public class TextStayAliveApplication {
 
         // spring 逻辑服
         UserLogicService userLogicService = new UserLogicService();
+        ProcessLogicService processLogicService = new ProcessLogicService();
 
         // 全局配置
         IoGameGlobalSetting.setDataCodec(new JsonDataCodec());
@@ -38,7 +40,7 @@ public class TextStayAliveApplication {
             // 游戏对外服
             .setExternalServer(externalServer)
             // 游戏逻辑服列表
-            .setLogicServerList(List.of(userLogicService))
+            .setLogicServerList(List.of(userLogicService,processLogicService))
             // 启动 对外服、网关、逻辑服
             .startup();
     }
