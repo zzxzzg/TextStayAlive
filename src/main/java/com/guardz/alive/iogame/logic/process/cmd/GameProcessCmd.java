@@ -7,4 +7,6 @@ public class GameProcessCmd {
 
     public static final int start = 1;
     public static final int end = 2;
+
+    public static final int commonMessage = 3;
 }

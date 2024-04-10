@@ -55,6 +55,10 @@ public class Game {
         thread.start();
     }
 
+    public void stop() {
+        isGameStart.set(false);
+    }
+
     public void receivePayload(String payload) {
         // 1. 解析payload
         Action action = ActionParseUtil.parseAction(payload);
@@ -93,7 +97,7 @@ public class Game {
 
     private void invokeTurn() {
         gameController.printMessage("-游戏开始");
-        while (true) {
+        while (isGameStart.get()) {
             Turn turn = Turn.nextTurn(this);
             turn.preTurn();
             turn.onTurn();

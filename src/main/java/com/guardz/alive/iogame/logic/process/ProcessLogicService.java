@@ -1,5 +1,6 @@
 package com.guardz.alive.iogame.logic.process;
 
+import com.guardz.alive.iogame.logic.process.controller.GameProcessActionController;
 import com.guardz.alive.iogame.logic.user.controller.UserActionController;
 import com.iohao.game.action.skeleton.core.BarSkeleton;
 import com.iohao.game.action.skeleton.core.BarSkeletonBuilder;
@@ -22,7 +23,7 @@ public class ProcessLogicService extends AbstractBrokerClientStartup {
         // 业务框架构建器 配置
         BarSkeletonBuilderParamConfig config = new BarSkeletonBuilderParamConfig()
                 // 扫描 action 类所在包
-                .scanActionPackage(UserActionController.class);
+                .scanActionPackage(GameProcessActionController.class);
 
         // 业务框架构建器
         BarSkeletonBuilder builder = config.createBuilder();
