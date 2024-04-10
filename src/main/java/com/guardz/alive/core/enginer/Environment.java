@@ -51,6 +51,7 @@ public class Environment {
     public void preTurn() {
         // 1. 随机当前天气
         weather = game.getGameMode().getWeatherRandom().random(gameTime, weather);
+        game.getGameController().printMessage("--天气:" + weather.toString());
         // 2. 产生环境事件
         List<EnvEvent> envEvents = game.getGameMode().getEventGenerator().generateEnvEvents(game);
         // 3 产生环境buff
