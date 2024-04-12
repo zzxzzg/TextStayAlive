@@ -7,7 +7,7 @@ public class SystemActionDispatcher {
     private static final List<SystemAction> SYS_ACTIONS = new ArrayList<>();
 
     static {
-        SYS_ACTIONS.add(new StartAction());
+        SYS_ACTIONS.add(new NextTurnAction());
     }
 
     public static SystemAction dispatch(String payload) {

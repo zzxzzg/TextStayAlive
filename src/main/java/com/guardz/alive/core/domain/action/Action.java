@@ -1,5 +1,7 @@
 package com.guardz.alive.core.domain.action;
 
+import com.guardz.alive.core.enginer.Game;
+
 /**
  * 用户行文
  */
@@ -17,5 +19,11 @@ public interface Action {
 
     String getActionDesc();
 
-    void doAction();
+     default void tryToDoAction(Game game, String data){
+         if (isAvailable()){
+             doAction(game, data);
+         }
+     }
+
+     void doAction(Game game, String data);
 }

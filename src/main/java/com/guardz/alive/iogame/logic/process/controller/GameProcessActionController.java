@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.guardz.alive.iogame.logic.process.cmd.GameProcessCmd;
 import com.guardz.alive.iogame.logic.process.domain.GameProcessManager;
 import com.guardz.alive.iogame.logic.process.executor.ProcessStartExecutor;
+import com.guardz.alive.iogame.logic.process.message.request.ActionRequest;
+import com.guardz.alive.iogame.logic.process.message.response.GameActionMessage;
 import com.iohao.game.action.skeleton.annotation.ActionController;
 import com.iohao.game.action.skeleton.annotation.ActionMethod;
 import com.iohao.game.action.skeleton.core.commumication.ProcessorContext;
@@ -42,10 +44,24 @@ public class GameProcessActionController {
         gameProcessManager.start(userId);
     }
 
+    @ActionMethod(GameProcessCmd.gameAction)
+    public GameActionMessage gameAction(ActionRequest actionRequest, FlowContext flowContext){
+        GameActionMessage gameActionMessage = new GameActionMessage();
+        gameProcessManager.gameAction(flowContext.getUserId(), actionRequest);
+        return gameActionMessage;
+    }
+
     @ActionMethod(GameProcessCmd.end)
     public void end(FlowContext flowContext) {
         long userId = flowContext.getUserId();
         log.info("游戏结束: {}", userId);
+        gameProcessManager.end(userId);
 
+        // 解除逻辑服绑定
+        EndPointLogicServerMessage endPointLogicServerMessage = new EndPointLogicServerMessage()
+            .setUserList(Lists.newArrayList(userId))
+            .setOperation(EndPointOperationEnum.CLEAR);
+        ProcessorContext processorContext = BrokerClientHelper.getProcessorContext();
+        processorContext.invokeOneway(endPointLogicServerMessage);
     }
 }

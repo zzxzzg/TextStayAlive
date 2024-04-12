@@ -9,4 +9,8 @@ public class GameProcessCmd {
     public static final int end = 2;
 
     public static final int commonMessage = 3;
+
+    public static final int turnStatusMessage = 4;
+
+    public static final int gameAction = 5;
 }

@@ -1,5 +1,7 @@
 package com.guardz.alive.core.domain.action.turn;
 
+import com.guardz.alive.core.enginer.Game;
+
 /**
  * 发呆
  */
@@ -25,5 +27,5 @@ public class StareBlankly implements TurnAction {
     }
 
     @Override
-    public void doAction() {}
+    public void doAction(Game game, String data) {}
 }
